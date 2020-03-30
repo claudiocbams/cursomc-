@@ -1,7 +1,7 @@
 package com.claudio.cursomc.resources;
 
-import java.util.ArrayList;
-import java.util.List;
+
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
