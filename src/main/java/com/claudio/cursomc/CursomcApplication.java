@@ -1,5 +1,6 @@
 package com.claudio.cursomc;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,20 @@ import com.claudio.cursomc.domain.Cidade;
 import com.claudio.cursomc.domain.Cliente;
 import com.claudio.cursomc.domain.Endereco;
 import com.claudio.cursomc.domain.Estado;
+import com.claudio.cursomc.domain.Pagamento;
+import com.claudio.cursomc.domain.PagamentoComBoleto;
+import com.claudio.cursomc.domain.PagamentoComCartao;
+import com.claudio.cursomc.domain.Pedido;
 import com.claudio.cursomc.domain.Produto;
+import com.claudio.cursomc.domain.enums.EstadoPagamento;
 import com.claudio.cursomc.domain.enums.TipoCliente;
 import com.claudio.cursomc.repositories.CategoriaRepository;
 import com.claudio.cursomc.repositories.CidadeRepository;
 import com.claudio.cursomc.repositories.ClienteRepository;
 import com.claudio.cursomc.repositories.EnderecoRepository;
 import com.claudio.cursomc.repositories.EstadoRepository;
+import com.claudio.cursomc.repositories.PagamentoRepository;
+import com.claudio.cursomc.repositories.PedidoRepository;
 import com.claudio.cursomc.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -38,6 +46,10 @@ public class CursomcApplication implements CommandLineRunner {
  	private ClienteRepository clienteRepository;
   @Autowired
 	private EnderecoRepository enderecoRepository;
+  @Autowired
+	private PedidoRepository pedidoRepository;
+@Autowired
+	private PagamentoRepository pagamentoRepository;
    
      
    
@@ -108,7 +120,6 @@ public class CursomcApplication implements CommandLineRunner {
 		cli3.getEnderecos().addAll(Arrays.asList(end4));
 		cli3.getEnderecos().addAll(Arrays.asList(end5));
 		
-		
 		categoriaRepository.saveAll(Arrays.asList(cat1,cat2));
 		produtoRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5,p6,p7));
 		estadoRepository.saveAll(Arrays.asList(est1,est2, est3, est4, est4, est5, est6));
@@ -116,6 +127,37 @@ public class CursomcApplication implements CommandLineRunner {
 		clienteRepository.saveAll(Arrays.asList(cli1,cli2,cli3,cli4,cli5));
 		enderecoRepository.saveAll(Arrays.asList(end1,end2,end3,end4,end5));
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		
+		Pedido ped1 = new Pedido(null,sdf.parse("30/03/2020 17:00"),cli1,end1);
+		Pedido ped2 = new Pedido(null,sdf.parse("29/03/2020 10:00"),cli1,end2);
+		Pedido ped3 = new Pedido(null,sdf.parse("28/03/2020 11:00"),cli3,end3);
+		Pedido ped4 = new Pedido(null,sdf.parse("25/03/2020 13:00"),cli4,end4);
+		Pedido ped5 = new Pedido(null,sdf.parse("27/03/2020 16:00"),cli5,end5);
+		
+		
+		Pagamento pg1 = new  PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6 );
+		ped1.setPagamento(pg1);
+		
+		Pagamento pg2 = new  PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("28/03/2020 15:20"), null);
+		ped2.setPagamento(pg2);
+		Pagamento pg3 = new  PagamentoComBoleto(null, EstadoPagamento.QUITADO, ped3, sdf.parse("30/03/2020 15:20"), null );
+		ped3.setPagamento(pg3);
+		Pagamento pg4 = new  PagamentoComCartao(null, EstadoPagamento.QUITADO, ped4, 6 );
+		ped4.setPagamento(pg4);
+		Pagamento pg5 = new  PagamentoComCartao(null, EstadoPagamento.QUITADO, ped5, 6 );
+		ped5.setPagamento(pg5);
+		
+		cli1.getPedidos().addAll(Arrays.asList(ped1,ped2));
+		cli3.getPedidos().addAll(Arrays.asList(ped3));
+		cli4.getPedidos().addAll(Arrays.asList(ped4));		
+		cli5.getPedidos().addAll(Arrays.asList(ped5));
+		
+		
+		
+		
+		pedidoRepository.saveAll(Arrays.asList(ped1,ped2,ped3,ped4));
+		pagamentoRepository.saveAll(Arrays.asList(pg1,pg2,pg3,pg4,pg5));
 	}
 
 }
