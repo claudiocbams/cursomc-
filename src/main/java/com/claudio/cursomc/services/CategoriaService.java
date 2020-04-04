@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.claudio.cursomc.domain.Categoria;
+import com.claudio.cursomc.dto.CategoriaDTO;
 import com.claudio.cursomc.repositories.CategoriaRepository;
 import com.claudio.cursomc.services.exceptions.ObjectNotFoundException;
 
@@ -57,4 +58,18 @@ public class CategoriaService {
 		PageRequest pageRequest = PageRequest.of(pages, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
 	}
+	
+	public Categoria fromDTO(CategoriaDTO objDTO) {
+		return new Categoria(objDTO.getId(),objDTO.getNome());
+	}
+	public Categoria update(Categoria obj) {
+		Categoria newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
+	}
+	
+	private void updateData(Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());
+	}
+		
 }
