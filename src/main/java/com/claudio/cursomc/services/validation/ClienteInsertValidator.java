@@ -8,6 +8,7 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.claudio.cursomc.domain.Cliente;
 import com.claudio.cursomc.domain.enums.TipoCliente;
 import com.claudio.cursomc.dto.ClienteNewDTO;
 import com.claudio.cursomc.repositories.ClienteRepository;
@@ -36,7 +37,10 @@ public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert
 			list.add(new FieldMessage("cpfcnpj", "CNPJ inválido"));
 		}
 		
-		
+		Cliente aux = repo.findByEmail(objDto.getEmail());
+		if (aux != null) {
+			list.add(new FieldMessage("email", "Email já existente"));
+		}
 		for (FieldMessage e : list) {
 			context.disableDefaultConstraintViolation();
 			context.buildConstraintViolationWithTemplate(e.getMessage()).addPropertyNode(e.getFiledName())
