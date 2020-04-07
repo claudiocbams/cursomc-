@@ -8,8 +8,9 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import com.claudio.cursomc.domain.Cliente;
+import com.claudio.cursomc.services.validation.ClienteUpdate;
 
-
+@ClienteUpdate// faz a verificação do cliente na hora de atualizar, sem ele apresentara excess~~o do framework
 public class ClienteDTO implements Serializable {
 
 	/**
