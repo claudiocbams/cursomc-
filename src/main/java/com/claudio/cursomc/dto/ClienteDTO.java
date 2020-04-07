@@ -9,33 +9,36 @@ import org.hibernate.validator.constraints.Length;
 
 import com.claudio.cursomc.domain.Cliente;
 
+
 public class ClienteDTO implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Integer id;
-	@NotEmpty(message= "Preechimento Obrigatório")
-	@Length(min = 5,max=80, message="O tamanho deve ser entre 5 e 120 caracteres")
+private Integer id;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
+	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
 	private String nome;
-	@NotEmpty(message= "Preechimento Obrigatório")
-	@Email(message= "Email Inválido!")
+	
+	@NotEmpty(message="Preenchimento obrigatório")
+	@Email(message="Email inválido")
 	private String email;
 	
-	public ClienteDTO() {
-		
-	}
 	
-	/// metodo para passar mensagem de categoria para categoria dto
+	
+	
+	public ClienteDTO() {
+	}
+
 	public ClienteDTO(Cliente obj) {
-		
 		id = obj.getId();
 		nome = obj.getNome();
 		email = obj.getEmail();
 		
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -59,6 +62,7 @@ public class ClienteDTO implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
 
 	
 	

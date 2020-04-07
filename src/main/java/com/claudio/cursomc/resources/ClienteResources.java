@@ -22,63 +22,64 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.claudio.cursomc.domain.Cliente;
 import com.claudio.cursomc.dto.ClienteDTO;
+import com.claudio.cursomc.dto.ClienteNewDTO;
 import com.claudio.cursomc.services.ClienteService;
 
 @RestController
-@RequestMapping(path= "/clientes")
+@RequestMapping(value="/clientes")
 public class ClienteResources {
+
 	@Autowired
 	private ClienteService service;
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Cliente> find(@PathVariable Integer id) {
 		Cliente obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
-		
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> Insert(@Valid @RequestBody  ClienteDTO objDTO)
-	{
+	public ResponseEntity<Void> Insert(@Valid @RequestBody ClienteNewDTO objDTO) {
 		Cliente obj = service.fromDTO(objDTO);
-		obj = service.Insert(obj);
+		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
-	
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
-		
+
 		service.delete(id);
 		return ResponseEntity.noContent().build();
-		
+
 	}
-	
-	@RequestMapping(method=RequestMethod.GET)
+
+	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<ClienteDTO>> findAll() {
 		List<Cliente> lista = service.findAll();
 		List<ClienteDTO> listaDTO = lista.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());// service.findAll();
 		return ResponseEntity.ok().body(listaDTO);
 	}
-	
 
-	@RequestMapping(value= "/page", method=RequestMethod.GET)
-	public ResponseEntity<Page<ClienteDTO>> findPage( 
-		@RequestParam(value ="page", defaultValue = "0")Integer pages,
-		@RequestParam(value ="linesPerPage", defaultValue = "24")Integer linesPerPage,
-		@RequestParam(value ="orderBy", defaultValue = "nome")String orderBy,
-		@RequestParam(value ="direction", defaultValue = "ASC") String direction){
-		Page<Cliente> lista = service.findPage( pages,  linesPerPage, orderBy, direction);
+	@RequestMapping(value = "/page", method = RequestMethod.GET)
+	public ResponseEntity<Page<ClienteDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer pages,
+			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
+			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
+			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+		Page<Cliente> lista = service.findPage(pages, linesPerPage, orderBy, direction);
 		Page<ClienteDTO> listaDTO = lista.map(obj -> new ClienteDTO(obj));// service.findAll();
 		return ResponseEntity.ok().body(listaDTO);
 	}
-	
-	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> update (@Valid @RequestBody ClienteDTO objDTO, @PathVariable Integer id) {
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO objDTO, @PathVariable Integer id) {
 		Cliente obj = service.fromDTO(objDTO);
 		obj.setId(id);
-		obj = service.update(obj);		
+		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
-
-
+	
+	
 }
+
+

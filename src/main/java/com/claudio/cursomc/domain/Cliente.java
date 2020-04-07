@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -24,34 +25,40 @@ public class Cliente implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private String nome;
+	private String nome;	
+	//@Column(unique=true)
 	private String email;
-	private String cpfOuCnpj;
-	private Integer tipo; //macete mudar tipo cliente para inteiro (enum)
+	private String cpfcnpj;
+	private Integer tipo;
 	
-	
-	@OneToMany(mappedBy = "cliente" )
+		
+	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
+	
 	@ElementCollection
 	@CollectionTable(name="TELEFONE")
-	Set<String> telefones = new HashSet<>();// um conjuto de string que não se repete
-	@JsonIgnore //ignora serialização para não haver laço ciclico
+	private Set<String> telefones = new HashSet<>();
+	
+	
+	@JsonIgnore
 	@OneToMany(mappedBy="cliente")
-	List<Pedido> pedidos = new ArrayList<>();
+	private List<Pedido> pedidos = new ArrayList<>();
 	
 	public Cliente() {
 		
 	}
 
-	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
+	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
-		this.cpfOuCnpj = cpfOuCnpj;
-		this.tipo =(tipo==null) ? null : tipo.getCod();//alterar para .getCod (macete)
+		this.cpfcnpj = cpfOuCnpj;
+		this.tipo = (tipo==null) ? null : tipo.getCod();
+		
+		
 	}
 
 	public Integer getId() {
@@ -79,21 +86,21 @@ public class Cliente implements Serializable {
 	}
 
 	public String getCpfOuCnpj() {
-		return cpfOuCnpj;
+		return cpfcnpj;
 	}
 
 	public void setCpfOuCnpj(String cpfOuCnpj) {
-		this.cpfOuCnpj = cpfOuCnpj;
+		this.cpfcnpj = cpfOuCnpj;
 	}
- //alterado para funcionar com enum
+
 	public TipoCliente getTipo() {
-		return TipoCliente.toEnum(tipo);//macete enum
+		return TipoCliente.toEnum(tipo);
 	}
 
 	public void setTipo(TipoCliente tipo) {
-		this.tipo = tipo.getCod();//macete (enum)
-	}
-//=================================================
+		this.tipo = tipo.getCod();
+	}	
+	
 	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}
@@ -109,9 +116,7 @@ public class Cliente implements Serializable {
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
 	}
-	
 
-	
 	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
@@ -119,8 +124,7 @@ public class Cliente implements Serializable {
 	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
 	}
-
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -144,9 +148,7 @@ public class Cliente implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-	
-	
+	}	
 	
 
 }
