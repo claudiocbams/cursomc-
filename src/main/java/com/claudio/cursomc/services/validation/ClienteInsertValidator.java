@@ -8,7 +8,6 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.claudio.cursomc.domain.Cliente;
 import com.claudio.cursomc.domain.enums.TipoCliente;
 import com.claudio.cursomc.dto.ClienteNewDTO;
 import com.claudio.cursomc.repositories.ClienteRepository;
@@ -30,11 +29,11 @@ public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert
 		List<FieldMessage> list = new ArrayList<>();
 		
 		if (objDto.getTipo().equals(TipoCliente.PESSOAFISICA.getCod()) && !BR.isValidCPF(objDto.getCpfcnpj())) {
-			list.add(new FieldMessage("cpfOuCnpj", "CPF inválido"));
+			list.add(new FieldMessage("cpfcnpj", "CPF inválido"));
 		}
 
 		if (objDto.getTipo().equals(TipoCliente.PESSOAJURIDICA.getCod()) && !BR.isValidCNPJ(objDto.getCpfcnpj())) {
-			list.add(new FieldMessage("cpfOuCnpj", "CNPJ inválido"));
+			list.add(new FieldMessage("cpfcnpj", "CNPJ inválido"));
 		}
 		
 		
