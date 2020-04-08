@@ -34,6 +34,15 @@ public class ItemPedido implements Serializable {
 		this.quantidade = quantidade;
 		this.preco = preco;
 	}
+	
+	
+	public Double getSubTotal()
+	{
+		return (preco -desconto) * quantidade;
+	}
+	
+	
+	
 
 	@JsonIgnore//ignorar mão dupla nos relacionamentos entre classe pedido e produto para serialização
 	//=======get produto e get pedido para acessar fora da classe
