@@ -46,9 +46,18 @@ public class ItemPedido implements Serializable {
 
 	@JsonIgnore//ignorar mão dupla nos relacionamentos entre classe pedido e produto para serialização
 	//=======get produto e get pedido para acessar fora da classe
-    public Pedido getPedido() {
+   
+	
+	public Pedido getPedido() {
     	return id.getPedido();
     }
+	
+	
+	public void setPedido(Pedido pedido) {
+		id.setPedido(pedido);
+	}
+	
+	
 	
     public Produto getProduto() {
     	
@@ -59,6 +68,11 @@ public class ItemPedido implements Serializable {
 	public ItemPedidoPK getId() {
 		return id;
 	}
+	
+	public void setProduto(Produto produto) {
+		id.setProduto(produto);
+	}
+	
 
 
 	public void setId(ItemPedidoPK id) {
