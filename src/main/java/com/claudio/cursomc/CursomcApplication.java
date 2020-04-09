@@ -1,39 +1,12 @@
 package com.claudio.cursomc;
 
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.claudio.cursomc.domain.Categoria;
-import com.claudio.cursomc.domain.Cidade;
-import com.claudio.cursomc.domain.Cliente;
-import com.claudio.cursomc.domain.Endereco;
-import com.claudio.cursomc.domain.Estado;
-import com.claudio.cursomc.domain.ItemPedido;
-import com.claudio.cursomc.domain.Pagamento;
-import com.claudio.cursomc.domain.PagamentoComBoleto;
-import com.claudio.cursomc.domain.PagamentoComCartao;
-import com.claudio.cursomc.domain.Pedido;
-import com.claudio.cursomc.domain.Produto;
-import com.claudio.cursomc.domain.enums.EstadoPagamento;
-import com.claudio.cursomc.domain.enums.TipoCliente;
-import com.claudio.cursomc.repositories.CategoriaRepository;
-import com.claudio.cursomc.repositories.CidadeRepository;
-import com.claudio.cursomc.repositories.ClienteRepository;
-import com.claudio.cursomc.repositories.EnderecoRepository;
-import com.claudio.cursomc.repositories.EstadoRepository;
-import com.claudio.cursomc.repositories.ItemPedidoRepository;
-import com.claudio.cursomc.repositories.PagamentoRepository;
-import com.claudio.cursomc.repositories.PedidoRepository;
-import com.claudio.cursomc.repositories.ProdutoRepository;
-
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner {
-
+/*
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 	@Autowired
@@ -52,14 +25,14 @@ public class CursomcApplication implements CommandLineRunner {
 	private PagamentoRepository pagamentoRepository;
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
-	
+	*/
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		
+		/*
 		Categoria cat1 = new Categoria(null, "Informática");
 		Categoria cat2 = new Categoria(null, "Escritório");
 		Categoria cat3 = new Categoria(null, "Cama Mesa e Banho");
@@ -170,7 +143,7 @@ public class CursomcApplication implements CommandLineRunner {
 
 		
 			
-
+*/
 		
 
 	}
