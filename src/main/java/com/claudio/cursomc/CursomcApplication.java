@@ -3,8 +3,10 @@ package com.claudio.cursomc;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
-@SpringBootApplication
+//@SpringBootApplication
+@SpringBootApplication(exclude={SecurityAutoConfiguration.class})
 public class CursomcApplication implements CommandLineRunner {
 /*
 	@Autowired
@@ -26,6 +28,7 @@ public class CursomcApplication implements CommandLineRunner {
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
 	*/
+
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
 	}
