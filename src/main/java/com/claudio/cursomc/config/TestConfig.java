@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Profile;
 
 import com.claudio.cursomc.services.DBService;
 import com.claudio.cursomc.services.EmailService;
-import com.claudio.cursomc.services.SmtpEmailService;
+import com.claudio.cursomc.services.MockEmailService;
 
 @Configuration
 @Profile("test")
@@ -21,15 +21,11 @@ public class TestConfig {
 		dbService.instantiateTestDatabase();
 		return true;
 	}
-	/*
+	
 	@Bean
 	public EmailService emailService() {
 		return new MockEmailService();
 	}
-	*/
-	@Bean
-	public EmailService emailService() {
-		return new SmtpEmailService();
-	}
-
+	
+	
 }
