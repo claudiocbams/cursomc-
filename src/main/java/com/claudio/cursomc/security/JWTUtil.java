@@ -24,31 +24,31 @@ public class JWTUtil {
 				.signWith(SignatureAlgorithm.HS512, secret.getBytes())/// algoritmo de geração do tokem, covert a string para array de bytes
 				.compact();
 	}
-	
+	////====autorização ------daqui desse ponto até o final
 	public boolean tokenValido(String token) {
 		Claims claims = getClaims(token);
 		if (claims != null) {
 			String username = claims.getSubject();
 			Date expirationDate = claims.getExpiration();
 			Date now = new Date(System.currentTimeMillis());
-			if (username != null && expirationDate != null && now.before(expirationDate)) {
+			if (username != null && expirationDate != null && now.before(expirationDate)) {//testa se o token esta expirado
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public String getUsername(String token) {
+	public String getUsername(String token) {//pega o usuario apartir do tokem
 		Claims claims = getClaims(token);
 		if (claims != null) {
 			return claims.getSubject();
 		}
 		return null;
 	}
-	
+	 ///função que recupera um clains apartir de um token
 	private Claims getClaims(String token) {
 		try {
-			return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody();
+			return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody(); ///função que recupera um clains apartir de um token
 		}
 		catch (Exception e) {
 			return null;
