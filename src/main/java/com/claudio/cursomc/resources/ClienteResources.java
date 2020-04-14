@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +46,7 @@ public class ClienteResources {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
-
+	@PreAuthorize("hasAnyRole('ADMIN')")//pré autorizado para deletar
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 
@@ -53,14 +54,14 @@ public class ClienteResources {
 		return ResponseEntity.noContent().build();
 
 	}
-
+	@PreAuthorize("hasAnyRole('ADMIN')")//pré autorizado buscar todos
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<ClienteDTO>> findAll() {
 		List<Cliente> lista = service.findAll();
 		List<ClienteDTO> listaDTO = lista.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());// service.findAll();
 		return ResponseEntity.ok().body(listaDTO);
 	}
-
+	@PreAuthorize("hasAnyRole('ADMIN')")//pré autorizado para busca paginada
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ResponseEntity<Page<ClienteDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer pages,
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
