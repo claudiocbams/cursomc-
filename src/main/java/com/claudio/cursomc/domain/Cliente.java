@@ -33,7 +33,8 @@ public class Cliente implements Serializable {
 	private String email;
 	private String cpfcnpj;
 	private Integer tipo;
-	
+	@JsonIgnore  //evita que mostre o bcrypt da senha ao recuperar os dados 
+	private String senha;
 		
 	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
@@ -51,14 +52,14 @@ public class Cliente implements Serializable {
 		
 	}
 
-	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
+	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.cpfcnpj = cpfOuCnpj;
 		this.tipo = (tipo==null) ? null : tipo.getCod();
-		
+		this.senha = senha;
 		
 	}
 
