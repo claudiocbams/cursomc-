@@ -25,7 +25,7 @@ import com.claudio.cursomc.security.JWTUtil;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)//permite anotação de pre autorização nos end points
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
  
 
@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/clientes/**"
 	};
 
-	private static final String[] PUBLIC_MATCHERS_POST = {
+	private static final String[] PUBLIC_MATCHERS_POST = { //permite autorização de post para o cliente se cadastrar
 			"/clientes/**",
 			"/auth/forgot/**"
 	};
