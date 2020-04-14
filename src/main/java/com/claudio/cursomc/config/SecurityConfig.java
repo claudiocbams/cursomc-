@@ -40,7 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final String[] PUBLIC_MATCHERS_GET = {// só recupera dados sem alterar
 			"/produtos/**",
 			"/categorias/**",
-			"/estados/**"
+			"/estados/**",
+			"/clientes/**"
 	};
 
 	private static final String[] PUBLIC_MATCHERS_POST = {
