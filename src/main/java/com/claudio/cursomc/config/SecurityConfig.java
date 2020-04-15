@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/produtos/**",
 			"/categorias/**",
 			"/estados/**",
-			"/clientes/**"
+			
 	};
 
 	private static final String[] PUBLIC_MATCHERS_POST = { //permite autorização de post para o cliente se cadastrar
