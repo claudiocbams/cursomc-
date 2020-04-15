@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,10 +27,14 @@ import com.claudio.cursomc.services.exceptions.AuthorizationException;
 import com.claudio.cursomc.services.exceptions.DataIntegrityException;
 import com.claudio.cursomc.services.exceptions.ObjectNotFoundException;
 
+
 @Service
 public class ClienteService {
-
+	//@Autowired
+	//private ImageService imageService;
 	
+	//@Autowired
+ // private 	S3Service s3Service;
 	@Autowired
 	private BCryptPasswordEncoder pe; 
 	
@@ -38,7 +43,11 @@ public class ClienteService {
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	//@Value("${img.prefix.client.profile}")
+	//private String prefix;
 	
+	//@Value("${img.profile.size}")
+	//private Integer size;
 	
 //	private Integer size;
 	
@@ -112,6 +121,7 @@ public class ClienteService {
 		newObj.setNome(obj.getNome());
 		newObj.setEmail(obj.getEmail());
 	}
+	
 	
 
 	

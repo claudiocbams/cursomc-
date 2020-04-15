@@ -1,12 +1,14 @@
 package com.claudio.cursomc;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
-//@SpringBootApplication
-@SpringBootApplication(exclude={SecurityAutoConfiguration.class})
+import com.claudio.cursomc.services.S3Service;
+
+@SpringBootApplication
+//@SpringBootApplication(exclude={SecurityAutoConfiguration.class})
 public class CursomcApplication implements CommandLineRunner {
 /*
 	@Autowired
@@ -28,13 +30,23 @@ public class CursomcApplication implements CommandLineRunner {
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
 	*/
+	
+	@Autowired
+	private S3Service s3Service;
+
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
+		
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
+		
+		
+		s3Service.uploadFile("c:\\arquivo\\figura.jpg\\");
+		
 		/*
 		Categoria cat1 = new Categoria(null, "Informática");
 		Categoria cat2 = new Categoria(null, "Escritório");
